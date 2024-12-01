@@ -20,7 +20,7 @@ function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <img src="/src/logo.png" alt="Logo" className="h-16 w-16 ml-3" />
+            <img src={"/src/logo.png"} alt="Logo" className="h-16 w-16 ml-3" />
             <div className="text-2xl font-bold text-primary">
               {language === 'ar' ? 'مؤسسه عزم و طموح للتجاره' : 'Azm and Tmouh Trading Est.'}
             </div>
