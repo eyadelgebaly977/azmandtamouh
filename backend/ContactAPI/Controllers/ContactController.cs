@@ -17,11 +17,24 @@ namespace ContactAPI.Controllers
             _logger = logger;
         }
 
+        // POST: api/contact
         [HttpPost]
         public async Task<IActionResult> SendEmail([FromBody] ContactRequest request)
         {
             try
             {
+                // CORS configuration (inline in controller)
+                Response.Headers.Add("Access-Control-Allow-Origin", "https://www.azmandtamouh.com"); // Your frontend domain
+                Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+                Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+                // Handle preflight (OPTIONS request)
+                if (Request.Method == "OPTIONS")
+                {
+                    return Ok();
+                }
+
+                // Sending the email
                 using var client = new SmtpClient("smtp.gmail.com", 587)
                 {
                     EnableSsl = true,

@@ -1,42 +1,20 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add controllers
-builder.Services.AddControllers();
-
-// Configure CORS - Allow only your frontend origin (https://www.azmandtamouh.com)
-builder.Services.AddCors(options =>
+namespace ContactAPI
 {
-    options.AddPolicy("AllowAll",
-        builder =>
+    public class Program
+    {
+        public static void Main(string[] args)
         {
-            builder
-                .WithOrigins("https://www.azmandtamouh.com")  // Allow only this origin
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();  // Important: Allow credentials with a specific origin
-        });
-});
+            CreateHostBuilder(args).Build().Run();
+        }
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>(); // This will configure your app through Startup class
+                });
+    }
 }
-
-// Use CORS policy
-app.UseCors("AllowAll");
-
-app.UseRouting();
-app.UseHttpsRedirection();
-app.UseAuthorization();
-
-// Map controllers
-app.MapControllers();
-
-app.Run();
