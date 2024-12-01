@@ -17,28 +17,20 @@ namespace ContactAPI.Controllers
             _logger = logger;
         }
 
-        // POST: api/contact
         [HttpPost]
         public async Task<IActionResult> SendEmail([FromBody] ContactRequest request)
         {
             try
             {
-                // CORS configuration (inline in controller)
-                Response.Headers.Add("Access-Control-Allow-Origin", "https://www.azmandtamouh.com"); // Your frontend domain
-                Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+                // CORS headers for POST request
+                Response.Headers.Add("Access-Control-Allow-Origin", "https://www.azmandtamouh.com");
+                Response.Headers.Add("Access-Control-Allow-Methods", "POST");
                 Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-                // Handle preflight (OPTIONS request)
-                if (Request.Method == "OPTIONS")
-                {
-                    return Ok();
-                }
-
-                // Sending the email
                 using var client = new SmtpClient("smtp.gmail.com", 587)
                 {
                     EnableSsl = true,
-                    Credentials = new NetworkCredential("info@azmandtamouh.com", "your-email-password-here")
+                    Credentials = new NetworkCredential("info@azmandtamouh.com", "azmandtamouh@")
                 };
 
                 var mailMessage = new MailMessage
@@ -66,6 +58,17 @@ namespace ContactAPI.Controllers
                 _logger.LogError(ex, "Error sending email");
                 return StatusCode(500, new { message = "Error sending email", details = ex.Message });
             }
+        }
+
+        [HttpOptions]
+        public IActionResult Options()
+        {
+            // CORS headers for OPTIONS request
+            Response.Headers.Add("Access-Control-Allow-Origin", "https://www.azmandtamouh.com");
+            Response.Headers.Add("Access-Control-Allow-Methods", "POST, OPTIONS");
+            Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+            return Ok();
         }
     }
 
