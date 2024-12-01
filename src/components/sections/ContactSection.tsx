@@ -3,7 +3,7 @@ import { PhoneCall, MessageCircle, Mail } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { motion } from 'framer-motion';
 
-const API_URL = 'https://your-backend-vercel-url.vercel.app/api/contact';
+const API_URL = 'https://azmandtamouh-s6vf-iru809x7y-eyads-projects-0b2050de.vercel.app/api/contact';
 
 function ContactSection() {
   const { t, language } = useLanguage();
@@ -20,6 +20,7 @@ function ContactSection() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
           name: formData.get('name'),

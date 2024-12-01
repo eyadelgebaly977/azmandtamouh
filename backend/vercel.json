@@ -11,5 +11,8 @@
       "src": "/(.*)",
       "dest": "ContactAPI/Program.cs"
     }
-  ]
+  ],
+  "env": {
+    "ASPNETCORE_ENVIRONMENT": "Production"
+  }
 }
