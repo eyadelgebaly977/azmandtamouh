@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Language-specific styles */
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Add padding to account for fixed navbar */
+section {
+  scroll-margin-top: 5rem;
+}
+
+/* Ensure proper spacing for RTL/LTR layouts */
+.space-x-reverse > * + * {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+.ltr .space-x > * + * {
+  margin-left: 1rem;
+  margin-right: 0;
+}
