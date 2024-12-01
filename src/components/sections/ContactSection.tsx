@@ -3,14 +3,14 @@ import { PhoneCall, MessageCircle, Mail } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { motion } from 'framer-motion';
 
-const API_URL = 'https://www.azmandtamouh.com/api/contact';  // Correct API URL
+const API_URL = 'https://www.azmandtamouh.com/api/contact';  // Make sure this URL is correct.
 
 function ContactSection() {
   const { t, language } = useLanguage();
   const [formStatus, setFormStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
@@ -24,22 +24,22 @@ function ContactSection() {
         body: JSON.stringify({
           name: formData.get('name'),
           email: formData.get('email'),
-          message: formData.get('message'),
+          message: formData.get('message')
         }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setFormStatus(language === 'ar' ? '?? ????? ?????? ?????' : 'Message sent successfully');
-        e.target.reset();
+        setFormStatus(language === 'ar' ? 'تم إرسال رسالتك بنجاح' : 'Message sent successfully');
+        (e.target as HTMLFormElement).reset();
       } else {
-        setFormStatus(language === 'ar' ? '??? ??? ????? ???????' : 'Error sending message');
+        setFormStatus(language === 'ar' ? 'حدث خطأ أثناء الإرسال' : 'Error sending message');
         console.error('Server error:', data);
       }
     } catch (error) {
       console.error('Network error:', error);
-      setFormStatus(language === 'ar' ? '??? ??? ????? ???????' : 'Error sending message');
+      setFormStatus(language === 'ar' ? 'حدث خطأ أثناء الإرسال' : 'Error sending message');
     } finally {
       setIsSubmitting(false);
     }
@@ -47,7 +47,8 @@ function ContactSection() {
 
   return (
     <section id="contact" className="relative py-20">
-      <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url("https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")',
           backgroundBlendMode: 'overlay',
@@ -66,12 +67,44 @@ function ContactSection() {
             <h2 className="text-4xl font-bold text-primary">{t('contact.title')}</h2>
           </div>
           <div className="bg-white/90 backdrop-blur-sm p-8 rounded-lg shadow-xl">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {formStatus && (
-                <div className={`p-4 rounded-lg ${formStatus.includes('success') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                  {formStatus}
+            <div className="flex flex-col space-y-6 mb-8">
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center space-x-4">
+                  <PhoneCall className="w-6 h-6 text-primary" />
+                  <a href="tel:+966569331396" className="text-lg hover:text-primary transition-colors">+966569331396</a>
                 </div>
-              )}
+                <div className="flex items-center space-x-4 ml-10">
+                  <MessageCircle className="w-6 h-6 text-primary" />
+                  <a 
+                    href="https://wa.me/966569331396" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-lg hover:text-primary transition-colors"
+                  >
+                    {t('contact.whatsapp')}
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center space-x-4">
+                  <PhoneCall className="w-6 h-6 text-primary" />
+                  <a href="tel:+966502002068" className="text-lg hover:text-primary transition-colors">+966502002068</a>
+                </div>
+                <div className="flex items-center space-x-4 ml-10">
+                  <MessageCircle className="w-6 h-6 text-primary" />
+                  <a 
+                    href="https://wa.me/966502002068" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-lg hover:text-primary transition-colors"
+                  >
+                    {t('contact.whatsapp')}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
               <input
                 type="text"
                 name="name"
