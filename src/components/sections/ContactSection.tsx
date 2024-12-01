@@ -67,46 +67,6 @@ function ContactSection() {
             <h2 className="text-4xl font-bold text-primary">{t('contact.title')}</h2>
           </div>
           <div className="bg-white/90 backdrop-blur-sm p-8 rounded-lg shadow-xl">
-            <div className="flex flex-col space-y-6 mb-8">
-              {/* First Phone Number */}
-              <div className="flex flex-col space-y-2">
-                <div className="flex items-center space-x-4">
-                  <PhoneCall className="w-6 h-6 text-primary" />
-                  <a href="tel:+966569331396" className="text-lg hover:text-primary transition-colors">+966569331396</a>
-                </div>
-                <div className="flex items-center space-x-4 ml-10">
-                  <MessageCircle className="w-6 h-6 text-primary" />
-                  <a 
-                    href="https://wa.me/966569331396" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-lg hover:text-primary transition-colors"
-                  >
-                    {t('contact.whatsapp')}
-                  </a>
-                </div>
-              </div>
-
-              {/* Second Phone Number */}
-              <div className="flex flex-col space-y-2">
-                <div className="flex items-center space-x-4">
-                  <PhoneCall className="w-6 h-6 text-primary" />
-                  <a href="tel:+966502002068" className="text-lg hover:text-primary transition-colors">+966502002068</a>
-                </div>
-                <div className="flex items-center space-x-4 ml-10">
-                  <MessageCircle className="w-6 h-6 text-primary" />
-                  <a 
-                    href="https://wa.me/966502002068" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-lg hover:text-primary transition-colors"
-                  >
-                    {t('contact.whatsapp')}
-                  </a>
-                </div>
-              </div>
-            </div>
-            
             <form onSubmit={handleSubmit} className="space-y-6">
               {formStatus && (
                 <div className={`p-4 rounded-lg ${formStatus.includes('success') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
@@ -152,21 +112,21 @@ function ContactSection() {
                 <textarea 
                   name="message" 
                   placeholder={t('contact.form.message')} 
-                  rows={4} 
                   className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" 
-                  required
+                  rows={5} 
+                  required 
                   disabled={isSubmitting}
-                ></textarea>
+                />
               </motion.div>
-              <motion.button 
-                type="submit" 
-                className="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-primary-dark transition disabled:opacity-50"
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {isSubmitting ? (language === 'ar' ? 'جاري الإرسال...' : 'Sending...') : t('contact.form.submit')}
-              </motion.button>
+              <div className="text-center">
+                <button 
+                  type="submit" 
+                  className={`px-8 py-3 text-white bg-primary rounded-lg ${isSubmitting ? 'cursor-not-allowed' : ''}`} 
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? t('contact.form.sending') : t('contact.form.submit')}
+                </button>
+              </div>
             </form>
           </div>
         </motion.div>

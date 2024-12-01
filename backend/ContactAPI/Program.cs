@@ -4,19 +4,20 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add controllers
 builder.Services.AddControllers();
 
-// Configure CORS
+// Configure CORS - Allow only your frontend origin (https://www.azmandtamouh.com)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
         builder =>
         {
             builder
-                .SetIsOriginAllowed(_ => true) // Allow any origin
+                .WithOrigins("https://www.azmandtamouh.com")  // Allow only this origin
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials();
+                .AllowCredentials();  // Important: Allow credentials with a specific origin
         });
 });
 
@@ -28,13 +29,14 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-// Important: UseCors must be called before UseRouting and UseEndpoints
+// Use CORS policy
 app.UseCors("AllowAll");
 
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
+// Map controllers
 app.MapControllers();
 
 app.Run();

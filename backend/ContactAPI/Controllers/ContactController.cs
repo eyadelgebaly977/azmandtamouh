@@ -25,7 +25,7 @@ namespace ContactAPI.Controllers
                 using var client = new SmtpClient("smtp.gmail.com", 587)
                 {
                     EnableSsl = true,
-                    Credentials = new NetworkCredential("info@azmandtamouh.com", "azmandtamouh@")
+                    Credentials = new NetworkCredential("info@azmandtamouh.com", "your-email-password-here")
                 };
 
                 var mailMessage = new MailMessage
