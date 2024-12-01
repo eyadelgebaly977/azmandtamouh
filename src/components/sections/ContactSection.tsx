@@ -3,14 +3,14 @@ import { PhoneCall, MessageCircle, Mail } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { motion } from 'framer-motion';
 
-const API_URL = 'https://www.azmandtamouh.com/api/contact';  // Make sure this URL is correct.
+const API_URL = 'https://www.azmandtamouh.com/api/contact'; // Correct API URL
 
 function ContactSection() {
   const { t, language } = useLanguage();
   const [formStatus, setFormStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
@@ -24,7 +24,7 @@ function ContactSection() {
         body: JSON.stringify({
           name: formData.get('name'),
           email: formData.get('email'),
-          message: formData.get('message')
+          message: formData.get('message'),
         }),
       });
 
@@ -32,7 +32,7 @@ function ContactSection() {
 
       if (response.ok) {
         setFormStatus(language === 'ar' ? 'تم إرسال رسالتك بنجاح' : 'Message sent successfully');
-        (e.target as HTMLFormElement).reset();
+        e.target.reset();
       } else {
         setFormStatus(language === 'ar' ? 'حدث خطأ أثناء الإرسال' : 'Error sending message');
         console.error('Server error:', data);
@@ -68,6 +68,7 @@ function ContactSection() {
           </div>
           <div className="bg-white/90 backdrop-blur-sm p-8 rounded-lg shadow-xl">
             <div className="flex flex-col space-y-6 mb-8">
+              {/* First Phone Number */}
               <div className="flex flex-col space-y-2">
                 <div className="flex items-center space-x-4">
                   <PhoneCall className="w-6 h-6 text-primary" />
@@ -86,6 +87,7 @@ function ContactSection() {
                 </div>
               </div>
 
+              {/* Second Phone Number */}
               <div className="flex flex-col space-y-2">
                 <div className="flex items-center space-x-4">
                   <PhoneCall className="w-6 h-6 text-primary" />
@@ -104,37 +106,67 @@ function ContactSection() {
                 </div>
               </div>
             </div>
+            
             <form onSubmit={handleSubmit} className="space-y-6">
-              <input
-                type="text"
-                name="name"
-                placeholder={t('contact.form.name')}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder={t('contact.form.email')}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <textarea
-                name="message"
-                placeholder={t('contact.form.message')}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <div className="text-center">
-                <button
-                  type="submit"
-                  className="w-full py-3 text-white bg-primary rounded-md hover:bg-primary/80 transition-colors"
+              {formStatus && (
+                <div className={`p-4 rounded-lg ${formStatus.includes('success') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                  {formStatus}
+                </div>
+              )}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <input 
+                  type="text" 
+                  name="name" 
+                  placeholder={t('contact.form.name')} 
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" 
+                  required 
                   disabled={isSubmitting}
-                >
-                  {isSubmitting ? t('contact.form.sending') : t('contact.form.send')}
-                </button>
-              </div>
-              {formStatus && <div className="text-center mt-4 text-xl">{formStatus}</div>}
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <input 
+                  type="email" 
+                  name="email" 
+                  placeholder={t('contact.form.email')} 
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" 
+                  required 
+                  disabled={isSubmitting}
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <textarea 
+                  name="message" 
+                  placeholder={t('contact.form.message')} 
+                  rows={4} 
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" 
+                  required
+                  disabled={isSubmitting}
+                ></textarea>
+              </motion.div>
+              <motion.button 
+                type="submit" 
+                className="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-primary-dark transition disabled:opacity-50"
+                disabled={isSubmitting}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {isSubmitting ? (language === 'ar' ? 'جاري الإرسال...' : 'Sending...') : t('contact.form.submit')}
+              </motion.button>
             </form>
           </div>
         </motion.div>

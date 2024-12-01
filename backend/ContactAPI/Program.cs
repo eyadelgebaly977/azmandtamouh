@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("https://www.azmandtamouh.com")  // Allow only the specific domain
+        builder.WithOrigins("https://azmandtamouh.com")  // Allow only the specific domain
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

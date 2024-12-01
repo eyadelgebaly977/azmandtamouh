@@ -23,7 +23,7 @@ namespace ContactAPI.Controllers
             try
             {
                 // Adding CORS headers
-                Response.Headers.Add("Access-Control-Allow-Origin", "https://www.azmandtamouh.com");
+                Response.Headers.Add("Access-Control-Allow-Origin", "https://azmandtamouh.com");
                 Response.Headers.Add("Access-Control-Allow-Methods", "POST");
                 Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
