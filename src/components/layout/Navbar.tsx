@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import LanguageSwitch from './LanguageSwitch';
-import Logo from '../assets/img/logo.png';  // Adjusted import path
+import Logo from '../../logo.png';  // Adjusted import path
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
