@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import LanguageSwitch from './LanguageSwitch';
+import Logo from '../assets/img/logo.png';  // Adjusted import path
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,7 @@ function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <img src="/logo.png" alt="Logo" className="h-16 w-16 ml-3" />
+            <img src={Logo} alt="Logo" className="h-16 w-16 ml-3" /> {/* Correctly imported logo */}
             <div className="text-2xl font-bold text-primary">
               {language === 'ar' ? 'مؤسسه عزم و طموح للتجاره' : 'Azm and Tmouh Trading Est.'}
             </div>
