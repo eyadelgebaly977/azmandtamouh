@@ -22,7 +22,7 @@ namespace ContactAPI.Controllers
         {
             try
             {
-                // CORS headers for POST request
+                // Adding CORS headers
                 Response.Headers.Add("Access-Control-Allow-Origin", "https://www.azmandtamouh.com");
                 Response.Headers.Add("Access-Control-Allow-Methods", "POST");
                 Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -58,17 +58,6 @@ namespace ContactAPI.Controllers
                 _logger.LogError(ex, "Error sending email");
                 return StatusCode(500, new { message = "Error sending email", details = ex.Message });
             }
-        }
-
-        [HttpOptions]
-        public IActionResult Options()
-        {
-            // CORS headers for OPTIONS request
-            Response.Headers.Add("Access-Control-Allow-Origin", "https://www.azmandtamouh.com");
-            Response.Headers.Add("Access-Control-Allow-Methods", "POST, OPTIONS");
-            Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-            return Ok();
         }
     }
 
