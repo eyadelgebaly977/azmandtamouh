@@ -68,7 +68,7 @@ function Footer() {
               </div>
               <div className="flex items-center">
                 <Mail className="w-5 h-5 ml-2" />
-                <a href="mailto:azem.tmoah@gmail.com" className="hover:underline">
+                <a href="mailto:info@azmandtamouh.com" className="hover:underline">
                   azem.tmoah@gmail.com
                 </a>
               </div>
