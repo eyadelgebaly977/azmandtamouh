@@ -53,6 +53,14 @@ function AboutSection() {
               >
                 {t('about.p3')}
               </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8 }}
+              >
+                {t('about.p4')}
+              </motion.p>
             </div>
           </div>
         </motion.div>
