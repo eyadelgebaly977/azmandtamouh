@@ -10,13 +10,13 @@ function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 mt-20">
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 z-0 bg-no-repeat bg-center"
         style={{
           backgroundImage: `url(${Logo})`, // Your hero image
-          backgroundSize: 'cover', // Ensures the image covers the section
-          backgroundPosition: 'center center', // Centers the image
-          backgroundBlendMode: 'overlay',
-          backgroundColor: 'rgba(27, 59, 69, 0.85)' // Optional overlay color for contrast
+          backgroundSize: 'contain', // Ensures the image fully appears without cropping
+          backgroundPosition: 'center center', // Keeps the image centered
+          backgroundRepeat: 'no-repeat', // Ensures no repeating of the image
+          backgroundColor: 'rgba(27, 59, 69, 0.85)' // Optional overlay for contrast
         }}
       />
       <div className="container mx-auto px-4 py-16 text-center relative z-10">
