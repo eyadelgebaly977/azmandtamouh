@@ -2,18 +2,21 @@ import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { motion } from 'framer-motion';
+import Logo from '../../hero.png'; // Path to your hero image in the src folder
 
 function HeroSection() {
   const { t, language } = useLanguage();
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-20 mt-20">
+    <section id="home" className="relative min-h-[100vh] flex items-center pt-20 mt-20">
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")',
+          backgroundImage: `url(${Logo})`, // Your hero image
+          backgroundSize: 'cover', // Ensures the image covers the section
+          backgroundPosition: 'center center', // Centers the image
           backgroundBlendMode: 'overlay',
-          backgroundColor: 'rgba(27, 59, 69, 0.85)'
+          backgroundColor: 'rgba(27, 59, 69, 0.85)' // Optional overlay color for contrast
         }}
       />
       <div className="container mx-auto px-4 py-16 text-center relative z-10">
